@@ -12,8 +12,8 @@
   --blue:#1656d6;
   --blue-light:#5b8bff;
   --blue-deep:#0e3aa0;
-  --red:#ff000d;
-  --red-deep:#c40009;
+  --red:#D30000;
+  --red-deep:#a30000;
   --line:rgba(10,10,10,.12);
   --line-soft:rgba(10,10,10,.07);
 
@@ -152,6 +152,9 @@ button{font-family:inherit;cursor:pointer;}
 }
 .main-nav a:hover::after,.main-nav a.active::after{transform:scaleX(1);}
 .nav-cta{display:flex;align-items:center;gap:12px;}
+/* .main-nav a's own padding rule is more specific than .btn's and was
+   squashing this button to a thin strip; restore its real button padding. */
+.nav-cta .btn{padding:16px 30px;}
 .nav-toggle{
   display:none;background:transparent;border:0;width:40px;height:40px;position:relative;z-index:210;
 }
@@ -182,7 +185,8 @@ button{font-family:inherit;cursor:pointer;}
   .main-nav a{font-size:1.1rem;}
   .nav-toggle{display:block;}
   .nav-cta{display:none;}
-  .nav-open .nav-cta{display:flex;margin-top:10px;}
+  .nav-open .nav-cta{display:flex;margin-top:10px;width:100%;}
+  .nav-cta .btn{width:100%;}
 }
 
 /* ---------- hero ---------- */
@@ -196,7 +200,7 @@ button{font-family:inherit;cursor:pointer;}
   overflow:hidden;
   background:
     radial-gradient(ellipse at 72% 18%, rgba(22,86,214,.10), transparent 55%),
-    radial-gradient(ellipse at 18% 82%, rgba(255,0,13,.07), transparent 60%),
+    radial-gradient(ellipse at 18% 82%, rgba(211,0,0,.07), transparent 60%),
     linear-gradient(180deg,#ffffff 0%, #f7f8fb 100%);
   display:flex;align-items:center;
 }
@@ -285,6 +289,23 @@ button{font-family:inherit;cursor:pointer;}
   .hero-content{max-width:100%;}
 }
 
+@media (max-width:640px){
+  /* below this width the logo graphic and the headline fought for the
+     same centered space; pin the graphic as a small badge above the
+     text instead so nothing overlaps, and tighten the CTA spacing. */
+  .hero-inner{align-items:flex-start;padding-top:0;}
+  .hero-figure-stage{
+    left:50%;right:auto;top:104px;
+    width:min(30vw,120px);
+    transform:translate(-50%,0);
+  }
+  .hero-content{padding-top:246px;}
+  .hero-title{font-size:clamp(2rem,9.5vw,2.7rem);margin-bottom:18px;}
+  .hero-sub{margin-bottom:30px;}
+  .hero-ctas{flex-direction:column;align-items:stretch;gap:18px;}
+  .hero-ctas .btn{width:100%;}
+}
+
 /* ---------- intro / about ---------- */
 .about-grid{
   display:grid;
@@ -308,9 +329,8 @@ button{font-family:inherit;cursor:pointer;}
   position:absolute;inset:0;
   background:
     radial-gradient(circle at 30% 20%, rgba(22,86,214,.28), transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(255,0,13,.24), transparent 55%);
+    radial-gradient(circle at 80% 80%, rgba(211,0,0,.24), transparent 55%);
 }
-.about-visual .logo-slot{position:relative;z-index:2;}
 .about-visual .visual-caption{
   position:absolute;bottom:18px;left:18px;right:18px;z-index:2;
   font-family:var(--font-mono);color:rgba(255,255,255,.5);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
@@ -322,7 +342,7 @@ button{font-family:inherit;cursor:pointer;}
 
 @media (max-width:900px){
   .about-grid{grid-template-columns:1fr;gap:44px;}
-  .about-visual{order:-1;max-width:340px;margin:0 auto;}
+  .about-visual{order:-1;width:min(100%,480px);margin:0 auto;}
 }
 
 /* ---------- programs ---------- */
